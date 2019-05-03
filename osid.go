@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/denisbrodbeck/machineid"
+	"github.com/zserge/webview"
 	"log"
+	"net/url"
 )
 
 func main() {
@@ -17,4 +19,13 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("Secure Id: " + id_new)
+
+	const myHTML =  "<!doctype html><html><body>test html"+id_new+"</body></html>"
+	//`<!doctype html><html><body>test html</body></html>`
+	w := webview.New(webview.Settings{
+		URL: `data:text/html,` + url.PathEscape(myHTML),
+		Resizable:true,
+	})
+	w.Run();
+
 }
